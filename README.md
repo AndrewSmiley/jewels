@@ -27,3 +27,5 @@ def hueristic(node, goal_state):
             else:
                 total_score = total_score+distance_to_goal
 ```
+Essentially, what my hueristic does is done in 3 parts. The first, is to determine if the node we are currently looking at is the goal state. This will return the highest score. The next, is to generate the children of the node we are looking at, if the a child of the current node contains the goal state, we return the second highest score for this node. The two aforementioned scorings ensure that we always select the node that is the goal state or the node in which the goal state will be in the next recursion. Finally, since we've generated children for the node (and python being a pass by reference language), we kill the children of the node :horns: 
+
