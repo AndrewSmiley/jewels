@@ -186,8 +186,38 @@ def dfs(node, goal_state, stack, depth):
                 dfs(child, goal_state, stack, depth+1)
     return
 
-print dfs(n, goal_state_0, [n], 0)
+#just a little utility function to generate the number of steps to the goal state at that space
+def get_space_distance(space, goal):
+    return _states.index(goal) - _states.index(space) if space != _states[-1] else 1 + _states.index(goal)
 
+
+
+def hueristic(node, goal_state):
+    total_score = 0
+    #well, if this node is our goal give it the highest score
+    if node.data == goal_state:
+        return pow(9, 5)
+    generate_children(node)
+    #if the children of this node contain the solution, it's the next best solution
+    if len (filter(lambda x: x.data == goal_state, node.children)) >0:
+        return pow(9,4)
+    #kill the children \M/
+    del node.children[:]
+    for y in range(0, len(node.data)):
+        for x in range(0, len(node.data[y])):
+            distance_to_goal = get_space_distance(node.data[y][x], goal_state[y][x])
+            if distance_to_goal == 1:
+                total_score = total_score+4
+            else:
+                total_score = total_score+distance_to_goal
+
+
+
+def bfs(node, goal_state, stack, depth):
+
+
+print dfs(n, goal_state_0, [n], 0)
+n = Node(grid, 0, None)
 
 
 
